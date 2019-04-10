@@ -14,11 +14,11 @@ class ArticleController
      */
     public function homepage()
     {
-        return new Response('Okurde pierwsza stronka');
+        return new Response('pierwsza stronka');
     }
 
     /**
-     * @Route("/news/{slug}")
+     * @Route("/api/{slug}")
      */
 
     public function show($slug)
