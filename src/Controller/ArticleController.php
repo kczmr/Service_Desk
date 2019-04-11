@@ -3,30 +3,37 @@
 
 namespace App\Controller;
 
-
+use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\FOSRestBundle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Users;
 
-class ArticleController
+
+/**
+ * @Route("/api, name='api_")
+ */
+
+class ArticleController extends FOSRestBundle
 {
-    /**
-     * @Route("/")
-     */
+
     public function homepage()
     {
         return new Response('pierwsza stronka');
     }
 
     /**
-     * @Route("/api/{slug}")
+     * List of all users
+     * @Rest\Get("/users")
+     * @return Response
      */
 
-    public function show($slug)
+    public function getUsers()
     {
-        return new Response(sprintf(
-            'uhh test: %s',
-            $slug
-        ));
+        $repository = $this->getDoctrine()->getRepository(Users::class);
+        $users = -$repository->findall();
+        return $this->handleView($this->view($users));
+
     }
 
 }

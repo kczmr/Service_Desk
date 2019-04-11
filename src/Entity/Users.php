@@ -69,5 +69,4 @@ class Users
      */
     private $systemStatus;
 
-
 }
