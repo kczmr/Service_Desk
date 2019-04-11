@@ -3,18 +3,19 @@
 
 namespace App\Controller;
 
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\FOSRestBundle;
+use FOS\RestBundle\View\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Users;
 
 
 /**
- * @Route("/api, name='api_")
+ * @Route("/user", name="user_")
  */
 
-class ArticleController extends FOSRestBundle
+class ArticleController extends AbstractFOSRestController
 {
 
     public function homepage()
@@ -24,15 +25,18 @@ class ArticleController extends FOSRestBundle
 
     /**
      * List of all users
-     * @Rest\Get("/users")
-     * @return Response
+     * @Rest\Get("", name="get_all")
+     * @return View
      */
 
-    public function getUsers()
+    public function getUsers(TestUserRepository $userRepository)
     {
-        $repository = $this->getDoctrine()->getRepository(Users::class);
-        $users = -$repository->findall();
-        return $this->handleView($this->view($users));
+
+        $test = $userRepository->findAll();
+
+        print_r($test);
+        die();
+        return $this->view();
 
     }
 
